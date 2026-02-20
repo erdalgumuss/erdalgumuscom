@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className={`${GeistSans.variable} ${manrope.variable} antialiased`}>
-      <body className="font-sans">
+      <body className="font-sans bg-background">
         <DynamicLines />
         <div className="relative z-10">{children}</div>
       </body>

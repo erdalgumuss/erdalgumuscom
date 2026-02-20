@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 
 export function Navigation() {
@@ -12,7 +11,7 @@ export function Navigation() {
   const pathname = usePathname()
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
+    const handleScroll = () => setScrolled(window.scrollY > 12)
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -26,51 +25,69 @@ export function Navigation() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-300 ${scrolled
-          ? "bg-background/90 backdrop-blur-lg border-b border-border shadow-sm"
-          : "bg-background/60 backdrop-blur-md"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
+          ? "glass border-b border-border/60 shadow-[0_1px_0_oklch(0_0_0/0.04)]"
+          : "bg-transparent"
         }`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8">
         <div className="flex justify-between items-center h-16">
+          {/* Logo */}
           <Link
             href="/"
-            className="font-semibold text-lg text-foreground tracking-tight hover:opacity-70 transition-opacity"
+            className="group flex items-center gap-2"
           >
-            Erdal Gümüş
+            <div className="w-7 h-7 rounded-lg bg-foreground flex items-center justify-center transition-transform duration-200 group-hover:scale-95">
+              <span className="text-background font-bold text-xs select-none">EG</span>
+            </div>
+            <span className="font-semibold text-sm text-foreground tracking-tight">
+              Erdal Gümüş
+            </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-medium transition-colors duration-200 ${pathname === item.href
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                className={`relative px-3.5 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 ${pathname === item.href
+                    ? "text-foreground bg-secondary"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
                   }`}
               >
                 {item.label}
               </Link>
             ))}
+
+            {/* CTA pill */}
+            <Link
+              href="/#iletisim"
+              className="ml-3 px-4 py-1.5 text-sm font-medium bg-foreground text-background rounded-full hover:bg-foreground/85 transition-all duration-200 active:scale-95"
+            >
+              İletişim
+            </Link>
           </div>
 
-          {/* Mobile menu button */}
-          <Button variant="ghost" size="sm" className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg hover:bg-secondary transition-colors"
+            aria-label="Menü"
+          >
+            {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-4 space-y-1 border-t border-border mt-2">
+          <div className="md:hidden pb-4 animate-scale-in">
+            <div className="glass rounded-2xl p-3 space-y-1 mt-1 border border-border/60">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors duration-200"
+                  className="block px-4 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl transition-all duration-200"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}
