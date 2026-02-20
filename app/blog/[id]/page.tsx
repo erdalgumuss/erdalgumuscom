@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Navigation } from "@/components/navigation"
 import { BlogPost } from "@/components/blog-post"
 import { Footer } from "@/components/footer"
@@ -12,7 +13,7 @@ const blogPosts = [
       "Neural network eğitiminde kullanılan modern optimizasyon yöntemleri ve gradient descent varyasyonları üzerine teknik bir inceleme.",
     content: `Derin öğrenme modellerinin başarısı, doğru optimizasyon tekniklerinin seçimine bağlıdır. Adam, RMSprop ve SGD gibi optimizasyon algoritmaları, farklı senaryolarda farklı performans gösterir.
 
-Learning rate scheduling, momentum ve adaptive learning rate gibi teknikler, modelin convergence hızını ve final performansını önemli ölçüde etkiler. NeuroQubit'te yaptığımız araştırmalar, bu tekniklerin pratik uygulamalarını inceliyor.
+Learning rate scheduling, momentum ve adaptive learning rate gibi teknikler, modelin convergence hızını ve final performansını önemli ölçüde etkiler.
 
 ## Optimizasyon Algoritmaları
 
@@ -60,14 +61,14 @@ class SelfAttention(nn.Module):
         self.embed_size = embed_size
         self.heads = heads
         self.head_dim = embed_size // heads
-        
+
         self.values = nn.Linear(self.head_dim, self.head_dim, bias=False)
         self.keys = nn.Linear(self.head_dim, self.head_dim, bias=False)
         self.queries = nn.Linear(self.head_dim, self.head_dim, bias=False)
         self.fc_out = nn.Linear(heads * self.head_dim, embed_size)
 \`\`\`
 
-NeuroQubit'te, transformer tabanlı modelleri çeşitli domain-specific problemlere adapte ediyoruz. Transfer learning ve fine-tuning stratejileri, pratik uygulamalar için kritik.`,
+Transformer tabanlı modeller, domain-specific problemlere adapte edilirken transfer learning ve fine-tuning stratejileri kritik rol oynamaktadır.`,
     date: "2024-01-10",
     readTime: "10 dk",
     category: "Araştırma",
@@ -82,6 +83,15 @@ interface BlogPostPageProps {
   }
 }
 
+export function generateMetadata({ params }: BlogPostPageProps): Metadata {
+  const post = blogPosts.find((p) => p.id === Number.parseInt(params.id))
+  if (!post) return { title: "Yazı Bulunamadı — Erdal Gümüş" }
+  return {
+    title: `${post.title} — Erdal Gümüş`,
+    description: post.excerpt,
+  }
+}
+
 export default function BlogPostPage({ params }: BlogPostPageProps) {
   const post = blogPosts.find((p) => p.id === Number.parseInt(params.id))
 
@@ -90,7 +100,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pt-16">
       <Navigation />
       <BlogPost post={post} />
       <Footer />

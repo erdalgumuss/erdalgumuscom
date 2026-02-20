@@ -29,9 +29,9 @@ export function Footer() {
           {/* Social */}
           <div className="flex items-center gap-2">
             {[
-              { href: "https://linkedin.com/in/erdal-gumus", Icon: Linkedin, label: "LinkedIn" },
+              { href: "https://www.linkedin.com/in/gumuserdall", Icon: Linkedin, label: "LinkedIn" },
               { href: "https://github.com/erdalgumuss", Icon: Github, label: "GitHub" },
-              { href: "mailto:erdal@nqai.co", Icon: Mail, label: "E-posta" },
+              { href: "mailto:erdal@neuroqubitai.com.tr", Icon: Mail, label: "E-posta" },
             ].map(({ href, Icon, label }) => (
               <a
                 key={label}

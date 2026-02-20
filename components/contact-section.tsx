@@ -3,7 +3,7 @@ import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react"
 const links = [
     {
         label: "LinkedIn",
-        href: "https://linkedin.com/in/erdal-gumus",
+        href: "https://www.linkedin.com/in/gumuserdall",
         icon: Linkedin,
         description: "Profesyonel profil & bağlantılar",
     },
@@ -15,9 +15,9 @@ const links = [
     },
     {
         label: "E-posta",
-        href: "mailto:erdal@nqai.co",
+        href: "mailto:erdal@neuroqubitai.com.tr",
         icon: Mail,
-        description: "erdal@nqai.co",
+        description: "erdal@neuroqubitai.com.tr",
     },
 ]
 
